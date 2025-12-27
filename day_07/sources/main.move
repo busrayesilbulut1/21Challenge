@@ -2,6 +2,7 @@ module 0x0::habit {
 
     use std::string;
     use std::string::String;
+    use std::vector;
 
     public struct Habit has store, drop {
         name: String,
@@ -23,20 +24,21 @@ module 0x0::habit {
     }
 
     public fun complete_habit(list: &mut HabitList, index: u64) {
-        let habit = vector::borrow_mut(&mut list.habits, index);
-        habit.completed = true;
+        let h = vector::borrow_mut(&mut list.habits, index);
+        h.completed = true;
     }
 
     #[test]
     fun test_add_habit() {
         let mut list = empty_list();
 
-        let habit = Habit {
-            name: string::utf8(b"Read book"),
-            completed: false,
-        };
-
-        add_habit(&mut list, habit);
+        add_habit(
+            &mut list,
+            Habit {
+                name: string::utf8(b"Read"),
+                completed: false,
+            }
+        );
 
         assert!(vector::length(&list.habits) == 1);
     }
@@ -45,12 +47,14 @@ module 0x0::habit {
     fun test_complete_habit() {
         let mut list = empty_list();
 
-        let habit = Habit {
-            name: string::utf8(b"Exercise"),
-            completed: false,
-        };
+        add_habit(
+            &mut list,
+            Habit {
+                name: string::utf8(b"Run"),
+                completed: false,
+            }
+        );
 
-        add_habit(&mut list, habit);
         complete_habit(&mut list, 0);
 
         let h = vector::borrow(&list.habits, 0);
