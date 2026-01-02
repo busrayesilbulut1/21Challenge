@@ -1,5 +1,6 @@
 [package]
 name = "day_11"
+<<<<<<< HEAD
 version = "1.0.0"
 edition = "2024"
 
@@ -8,3 +9,10 @@ Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-fram
 
 [addresses]
 challenge = "0x0"
+=======
+version = "0.0.1"
+authors = ["Büşra Yeşilbulut <busrayesilbulut@example.com>"]
+edition = "2024"
+
+[dependencies]
+>>>>>>> 25b6c36 (Initial commit including day_11)
